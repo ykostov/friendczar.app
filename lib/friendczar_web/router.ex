@@ -26,6 +26,9 @@ defmodule FriendczarWeb.Router do
     get "/rooms/:id/edit", RoomController, :edit
     put "/rooms/:id", RoomController, :update
     delete "/room/:id", RoomController, :delete
+
+    # Users
+    resources("/sessions", SessionController, only: [:new, :create])
   end
 
   # Other scopes may use custom stacks.
