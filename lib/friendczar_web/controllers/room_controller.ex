@@ -6,7 +6,8 @@ defmodule FriendczarWeb.RoomController do
   alias Friendczar.Repo
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    rooms = Talk.list_rooms()
+    render(conn, "index.html", rooms: rooms)
   end
 
   def new(conn, _params) do
