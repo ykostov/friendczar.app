@@ -23,4 +23,8 @@ defmodule Friendczar.Talk do
   end
 
   def get_room!(id), do: Repo.get!(Room, id)
+
+  def delete_room(%Room{} = room) do
+    room |> Repo.delete()
+  end
 end
