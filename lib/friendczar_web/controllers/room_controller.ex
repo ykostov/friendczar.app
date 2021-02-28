@@ -32,4 +32,24 @@ defmodule FriendczarWeb.RoomController do
     render(conn, "show.html", room: room)
   end
 
+  def edit(conn, %{"id" => id}) do
+    room = Talk.get_room!(id)
+    changeset = Talk.change_room(room)
+    render(conn, "edit.html", room: room, changeset: changeset)
+  end
+
+  def update(conn, %{"id" => id, "room" => room_params}) do
+    room = Talk.get_room!(id)
+
+    case Talk.update_room(room, room_params) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, "Room updated!")
+        |> redirect(to: Routes.room_path(conn, :show, room))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", room: room, changeset: changeset)
+    end
+  end
+
 end
