@@ -11,4 +11,6 @@ defmodule Friendczar.Talk do
     |> Room.changeset(attrs)
     |> Repo.insert()
   end
+
+  def get_room!(id), do: Repo.get!(Room, id)
 end

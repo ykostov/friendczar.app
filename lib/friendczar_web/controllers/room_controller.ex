@@ -3,7 +3,7 @@ defmodule FriendczarWeb.RoomController do
 
   alias Friendczar.Talk.Room
   alias Friendczar.Talk
-  alias Friendczar.Repo
+
 
   def index(conn, _params) do
     rooms = Talk.list_rooms()
@@ -17,7 +17,7 @@ defmodule FriendczarWeb.RoomController do
 
   def create(conn, %{"room" => room_params}) do
     case Talk.create_room(room_params) do
-      {:ok, room} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Room Created!")
         |> redirect(to: Routes.room_path(conn, :index))
@@ -25,6 +25,11 @@ defmodule FriendczarWeb.RoomController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  def show(conn, %{"id" => id}) do
+    room = Talk.get_room!(id)
+    render(conn, "show.html", room: room)
   end
 
 end
