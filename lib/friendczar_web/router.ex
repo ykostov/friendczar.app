@@ -17,6 +17,9 @@ defmodule FriendczarWeb.Router do
     pipe_through :browser
 
     get "/", RoomController, :index
+
+    # Rooms
+    # resources("/rooms", RoomController)
     get "/rooms/new", RoomController, :new
     post "/rooms", RoomController, :create
     get "/rooms/:id", RoomController, :show
