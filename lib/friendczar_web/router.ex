@@ -29,6 +29,7 @@ defmodule FriendczarWeb.Router do
 
     # Users
     resources("/sessions", SessionController, only: [:new, :create])
+    resources("/registration", RegistrationController, only: [:new, :create]) 
     delete "/sign_out", SessionController, :delete
   end
 
