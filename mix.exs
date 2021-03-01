@@ -46,7 +46,8 @@ defmodule Friendczar.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:comeonin, "~> 5.1"},
-      {:bcrypt_elixir, "~> 2.0"}
+      {:bcrypt_elixir, "~> 2.0"},
+      {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false}
     ]
   end
 

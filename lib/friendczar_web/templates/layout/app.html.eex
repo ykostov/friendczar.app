@@ -17,15 +17,17 @@
       <h3 class="my-0 mr-md-auto font-weight-normal">
         <%= link "FriendCzar", to: Routes.room_path(@conn, :index), class: "navbar-brand text-light" %>
       </h3>
-      <%= if Friendczar.Accounts.user_signed_in?(@conn) do %>
+      <!-- <%= if Friendczar.Accounts.user_signed_in?(@conn) do %>
 
         <nav class="text-light my-2 my-md-0 mr-md-3">
           Signed in as: <strong> <%= Friendczar.Accounts.current_user(@conn).username %>
+
         </nav>
         <%= link "Sign Out", to: Routes.session_path(@conn, :delete), method: :delete, class: "btn btn-outline-primary" %>
       <% else %>
         <%= link "Sign Up", to: Routes.registration_path(@conn, :new), class: "btn btn-outline-primary ml-md-3" %>
-      <% end %>
+      <% end %> -->
+      <%= render "_person_menu.html", assigns %>
 
     </div>
 
