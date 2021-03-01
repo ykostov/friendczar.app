@@ -6,7 +6,7 @@ defmodule Friendczar.Accounts do
     user = Repo.get_by(User, email: email)
 
     cond do
-      user && user.password_hash == password ->
+      user && Bcrypt.check_pass(password, user.password_hash) ->
         {:ok, user}
       true ->
         {:error, :unauthorized}
