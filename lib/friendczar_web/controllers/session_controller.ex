@@ -13,7 +13,7 @@ defmodule FriendczarWeb.SessionController do
       {:ok, user} ->
         conn
         |> put_session(:current_user_id, user.id)
-        |> put_flash(:info, "You-ve signed in")
+        |> put_flash(:info, "You have signed in")
         |> redirect(to: Routes.room_path(conn, :index))
 
       {:error, _} ->
