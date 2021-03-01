@@ -11,6 +11,19 @@
   </head>
   <body>
 
+    <!-- Navbar -->
+
+    <div class="d-flex flex-column flex-md row align-items-center p-3 px-md-4 bg-dark">
+      <h3 class="my-0 mr-md-auto font-weight-normal">
+        <%= link "FriendCzar", to: Routes.room_path(@conn, :index), class: "navbar-brand text-light" %>
+      </h3>
+      <%= if Friendczar.Accounts.user_signed_in?(@conn) do %>
+        <nav class="text-light">
+          Signed in as: <strong> <%= Friendczar.Accounts.current_user(@conn).username %>
+        </nav>
+      <% end %>
+    </div>
+
     <%= unless is_nil(get_flash(@conn, :info)) do %>
       <p class="alert alert-success" role="alert"> <%= get_flash(@conn, :info) %> </p>
     <% end %>
