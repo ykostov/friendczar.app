@@ -11,7 +11,12 @@
   </head>
   <body>
 
-    
+    <%= unless is_nil(get_flash(@conn, :info)) do %>
+      <p class="alert alert-success" role="alert"> <%= get_flash(@conn, :info) %> </p>
+    <% end %>
+    <%= unless is_nil(get_flash(@conn, :error)) do %>
+      <p class="alert alert-danger" role="alert"> <%= get_flash(@conn, :error) %> </p>
+    <% end %>
 
     <main role="main" class="container">
 
