@@ -20,6 +20,8 @@ defmodule Friendczar.Accounts do
     if user_id, do: Repo.get(User, user_id)
     end
 
-
+  def sign_out(conn) do
+    Plug.Conn.configure_session(conn, drop: true)
+  end
 
 end
