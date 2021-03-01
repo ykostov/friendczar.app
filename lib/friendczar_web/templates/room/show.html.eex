@@ -3,6 +3,8 @@
 <span> <%= @room.description %> </span>
 
 <div>
-  <%= link "Edit", to: Routes.room_path(@conn, :edit, @room.id), class: "btn btn-default"%>
-  <%= link "Delete", to: Routes.room_path(@conn, :delete, @room), method: :delete, data: [confirm: "Are you sure you wanna delete the room?"], class: "btn btn-danger"%>
+  <%= if @current_person do %>
+    <%= link "Edit", to: Routes.room_path(@conn, :edit, @room.id), class: "btn btn-default"%>
+    <%= link "Delete", to: Routes.room_path(@conn, :delete, @room), method: :delete, data: [confirm: "Are you sure you wanna delete the room?"], class: "btn btn-danger"%>
+  <% end %>
 </div>
