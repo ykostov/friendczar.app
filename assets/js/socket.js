@@ -10,38 +10,44 @@ import {Socket} from "phoenix"
 
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
-
+let roomId = window.roomId
 socket.connect()
 
-// Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("room:general", {})
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+if (roomId) {
+  // Now that you are connected, you can join channels with a topic:
+  let channel = socket.channel(`room:${roomId}`, {})
 
 
-channel.on('room:general:new_message', (message) => {
-  console.log(message)
-  displayMessage(message)
-})
+  channel.join()
+    .receive("ok", resp => { console.log("Joined successfully", resp) })
+    .receive("error", resp => { console.log("Unable to join", resp) })
 
-document.querySelector('#message-form').addEventListener('submit', (e) => {
-  e.preventDefault()
-  let input = e.target.querySelector('#message-body')
 
-  channel.push('message:add', {
-    message: input.value
+  channel.on(`room:${roomId}:new_message`, (message) => {
+    console.log(message)
+    displayMessage(message)
   })
 
-  input.value = ''
-})
+  document.querySelector('#message-form').addEventListener('submit', (e) => {
+    e.preventDefault()
+    let input = e.target.querySelector('#message-body')
 
-const displayMessage = (msg) => {
-  let template = `
-    <li class="list-group-item"> ${msg.body} </li>
-  `
+    channel.push('message:add', {
+      message: input.value
+    })
 
-  document.querySelector('#display').innerHTML += template
+    input.value = ''
+  })
+
+  const displayMessage = (msg) => {
+    let template = `
+      <li class="list-group-item"> ${msg.body} </li>
+    `
+
+    document.querySelector('#display').innerHTML += template
+  }
 }
+
+
 
 export default socket

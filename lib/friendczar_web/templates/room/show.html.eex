@@ -17,3 +17,5 @@
     <button class="btn btn-outline-info" id="message-button">Send</button>
   </div>
 </form>
+
+<script>window.roomId = "<%= @room.id %>" </script>
