@@ -1,3 +1,0 @@
-<h2> Edit </h2>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.room_path(@conn, :update, @room)) %>

@@ -7,7 +7,7 @@ defmodule FriendczarWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_friendczar_key",
-    signing_salt: "r0FI2lVt"
+    signing_salt: "IY5zCFvP"
   ]
 
   socket "/socket", FriendczarWeb.UserSocket,

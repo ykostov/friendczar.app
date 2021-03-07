@@ -42,28 +42,28 @@ defmodule FriendczarWeb.ConnCase do
   end
 
   @doc """
-  Setup helper that registers and logs in persons.
+  Setup helper that registers and logs in users.
 
-      setup :register_and_log_in_person
+      setup :register_and_log_in_user
 
-  It stores an updated connection and a registered person in the
+  It stores an updated connection and a registered user in the
   test context.
   """
-  def register_and_log_in_person(%{conn: conn}) do
-    person = Friendczar.AuthenticationFixtures.person_fixture()
-    %{conn: log_in_person(conn, person), person: person}
+  def register_and_log_in_user(%{conn: conn}) do
+    user = Friendczar.AccountsFixtures.user_fixture()
+    %{conn: log_in_user(conn, user), user: user}
   end
 
   @doc """
-  Logs the given `person` into the `conn`.
+  Logs the given `user` into the `conn`.
 
   It returns an updated `conn`.
   """
-  def log_in_person(conn, person) do
-    token = Friendczar.Authentication.generate_person_session_token(person)
+  def log_in_user(conn, user) do
+    token = Friendczar.Accounts.generate_user_session_token(user)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})
-    |> Plug.Conn.put_session(:person_token, token)
+    |> Plug.Conn.put_session(:user_token, token)
   end
 end

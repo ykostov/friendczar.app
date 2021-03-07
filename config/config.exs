@@ -13,10 +13,10 @@ config :friendczar,
 # Configures the endpoint
 config :friendczar, FriendczarWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "h9Ns5FXhMK3apkplqXO4JD79tUmTDxdCFIG6kd5bFBij9hbWPcPCFtMjIlFlw+uy",
+  secret_key_base: "ioJN3UH+vvLeBrPhmb53CUS9MljxkOLAzeYigLlZ9ht57D1mXk9+1qyHPQ+AdIAC",
   render_errors: [view: FriendczarWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Friendczar.PubSub,
-  live_view: [signing_salt: "S6AUheRU"]
+  live_view: [signing_salt: "1P2rC8kv"]
 
 # Configures Elixir's Logger
 config :logger, :console,
