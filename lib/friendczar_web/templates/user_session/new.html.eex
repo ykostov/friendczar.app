@@ -1,0 +1,37 @@
+<h5 class="mb-4 text-center card-title">Log in</h5>
+
+<%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user], fn f -> %>
+  <%= if @error_message do %>
+    <div class="alert alert-danger">
+      <small><%= @error_message %></small>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :email %>
+    <%= text_input f, :email, required: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password %>
+    <%= password_input f, :password, required: true, class: "form-control" %>
+  </div>
+
+  <div class="mb-3 form-check">
+    <%= checkbox f, :remember_me, class: "form-check-input" %>
+    <%= label f, :remember_me, "Keep me logged in for 60 days", class: "form-check-label" %>
+  </div>
+
+  <div>
+    <%= submit "Log in", class: "btn btn-dark btn-block" %>
+  </div>
+<% end %>
+
+<div class="mt-3 text-center text-muted">
+  <small>Dont have an account?</small>
+</div>
+
+<div class="mt-3">
+  <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "card-link" %>
+  <%= link "Forgot your password?", to: Routes.user_reset_password_path(@conn, :new), class: "card-link" %>
+</div>

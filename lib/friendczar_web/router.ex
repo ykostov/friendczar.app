@@ -1,15 +1,16 @@
 defmodule FriendczarWeb.Router do
   use FriendczarWeb, :router
 
-  import FriendczarWeb.PersonAuth
+  import FriendczarWeb.UserAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
-    plug :fetch_flash
+    plug :fetch_live_flash
+    plug :put_root_layout, {FriendczarWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :fetch_current_person
+    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -19,21 +20,7 @@ defmodule FriendczarWeb.Router do
   scope "/", FriendczarWeb do
     pipe_through :browser
 
-    get "/", RoomController, :index
-
-    # Rooms
-    # resources("/rooms", RoomController)
-    get "/rooms/new", RoomController, :new
-    post "/rooms", RoomController, :create
-    get "/rooms/:id", RoomController, :show
-    get "/rooms/:id/edit", RoomController, :edit
-    put "/rooms/:id", RoomController, :update
-    delete "/room/:id", RoomController, :delete
-
-    # Users
-    resources("/sessions", SessionController, only: [:new, :create])
-    resources("/registration", RegistrationController, only: [:new, :create]) 
-    delete "/sign_out", SessionController, :delete
+    live "/", PageLive, :index
   end
 
   # Other scopes may use custom stacks.
@@ -60,32 +47,32 @@ defmodule FriendczarWeb.Router do
   ## Authentication routes
 
   scope "/", FriendczarWeb do
-    pipe_through [:browser, :redirect_if_person_is_authenticated]
+    pipe_through [:browser, :redirect_if_user_is_authenticated, :put_session_layout]
 
-    get "/persons/register", PersonRegistrationController, :new
-    post "/persons/register", PersonRegistrationController, :create
-    get "/persons/log_in", PersonSessionController, :new
-    post "/persons/log_in", PersonSessionController, :create
-    get "/persons/reset_password", PersonResetPasswordController, :new
-    post "/persons/reset_password", PersonResetPasswordController, :create
-    get "/persons/reset_password/:token", PersonResetPasswordController, :edit
-    put "/persons/reset_password/:token", PersonResetPasswordController, :update
+    get "/users/register", UserRegistrationController, :new
+    post "/users/register", UserRegistrationController, :create
+    get "/users/log_in", UserSessionController, :new
+    post "/users/log_in", UserSessionController, :create
+    get "/users/reset_password", UserResetPasswordController, :new
+    post "/users/reset_password", UserResetPasswordController, :create
+    get "/users/reset_password/:token", UserResetPasswordController, :edit
+    put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
   scope "/", FriendczarWeb do
-    pipe_through [:browser, :require_authenticated_person]
+    pipe_through [:browser, :require_authenticated_user]
 
-    get "/persons/settings", PersonSettingsController, :edit
-    put "/persons/settings", PersonSettingsController, :update
-    get "/persons/settings/confirm_email/:token", PersonSettingsController, :confirm_email
+    get "/users/settings", UserSettingsController, :edit
+    put "/users/settings", UserSettingsController, :update
+    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
   scope "/", FriendczarWeb do
     pipe_through [:browser]
 
-    delete "/persons/log_out", PersonSessionController, :delete
-    get "/persons/confirm", PersonConfirmationController, :new
-    post "/persons/confirm", PersonConfirmationController, :create
-    get "/persons/confirm/:token", PersonConfirmationController, :confirm
+    delete "/users/log_out", UserSessionController, :delete
+    get "/users/confirm", UserConfirmationController, :new
+    post "/users/confirm", UserConfirmationController, :create
+    get "/users/confirm/:token", UserConfirmationController, :confirm
   end
 end
