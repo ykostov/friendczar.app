@@ -14,7 +14,8 @@ defmodule Friendczar.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Friendczar.PubSub},
       # Start the Endpoint (http/https)
-      FriendczarWeb.Endpoint
+      FriendczarWeb.Endpoint,
+      FriendczarWeb.Presence
       # Start a worker by calling: Friendczar.Worker.start_link(arg)
       # {Friendczar.Worker, arg}
     ]
